@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "dosyayonetim\\dosyayonetim.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "dosyayonetim.ui\\dosyayonetim.ui.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

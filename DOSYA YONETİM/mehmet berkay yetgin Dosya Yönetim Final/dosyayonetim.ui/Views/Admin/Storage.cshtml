@@ -1,0 +1,78 @@
+﻿@{
+    ViewData["Title"] = "Depolama";
+    Layout = "~/Views/Shared/_adminLayout.cshtml";
+}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+<div class="container mt-4">
+    <h2><i class="bi bi-hdd-stack-fill me-2"></i>Kullanıcı Depolama Bilgileri</h2>
+    <div class="table-responsive">
+        <table class="table table-striped" id="storageTable">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Ad Soyad</th>
+                    <th>E-posta</th>
+                    <th>Kullanılan</th>
+                    <th>Toplam Limit</th>
+                    <th>Kalan</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+$(async function() {
+    const token = localStorage.getItem('token');
+    if (!token) {
+        window.location.href = '/Home/Login';
+        return;
+    }
+
+    // Kullanıcıları ve depolama bilgilerini çek
+    const [users, storages] = await Promise.all([
+        $.ajax({
+            url: API_SETTINGS.BASE_URL + '/api/Admin/users',
+            headers: { 'Authorization': 'Bearer ' + token }
+        }),
+        $.ajax({
+            url: API_SETTINGS.BASE_URL + '/api/Admin/storage',
+            headers: { 'Authorization': 'Bearer ' + token }
+        })
+    ]);
+
+    // Sadece aktif kullanıcılar
+    const activeUsers = users.filter(u => !u.isDeleted);
+
+    // Tabloyu doldur
+    const tbody = $('#storageTable tbody');
+    tbody.empty();
+    activeUsers.forEach((u, i) => {
+        const storage = storages.find(s => s.userId === u.id);
+        const used = storage ? storage.usedStorage : 0;
+        const total = storage ? storage.totalStorage : 0;
+        tbody.append(`
+            <tr>
+                <td>${i+1}</td>
+                <td>${u.firstName} ${u.lastName}</td>
+                <td>${u.email}</td>
+                <td>${formatFileSize(used)}</td>
+                <td>${formatFileSize(total)}</td>
+                <td>${formatFileSize(total - used)}</td>
+            </tr>
+        `);
+    });
+
+    function formatFileSize(bytes) {
+        if (!bytes) return '0 Bytes';
+        const k = 1024;
+        const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    }
+});
+</script>
+}
+

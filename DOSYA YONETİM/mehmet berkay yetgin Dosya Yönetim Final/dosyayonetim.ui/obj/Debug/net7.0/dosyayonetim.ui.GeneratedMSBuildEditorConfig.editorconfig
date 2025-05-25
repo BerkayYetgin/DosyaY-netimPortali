@@ -1,0 +1,81 @@
+is_global = true
+build_property.TargetFramework = net7.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = dosyayonetim.ui
+build_property.RootNamespace = dosyayonetim.ui
+build_property.ProjectDir = C:\Users\berkay\Desktop\DOSYA YONETİM\mehmet berkay yetgin Dosya Yönetim Vize+Final\dosyayonetim.ui\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 7.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\berkay\Desktop\DOSYA YONETİM\mehmet berkay yetgin Dosya Yönetim Vize+Final\dosyayonetim.ui
+build_property._RazorSourceGeneratorDebug = 
+build_property.EffectiveAnalysisLevelStyle = 7.0
+build_property.EnableCodeStyleSeverity = 
+
+[C:/Users/berkay/Desktop/DOSYA YONETİM/mehmet berkay yetgin Dosya Yönetim Vize+Final/dosyayonetim.ui/Views/Admin/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/berkay/Desktop/DOSYA YONETİM/mehmet berkay yetgin Dosya Yönetim Vize+Final/dosyayonetim.ui/Views/Admin/Storage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cU3RvcmFnZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/berkay/Desktop/DOSYA YONETİM/mehmet berkay yetgin Dosya Yönetim Vize+Final/dosyayonetim.ui/Views/Admin/Users.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVXNlcnMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/berkay/Desktop/DOSYA YONETİM/mehmet berkay yetgin Dosya Yönetim Vize+Final/dosyayonetim.ui/Views/Home/FolderContent.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxGb2xkZXJDb250ZW50LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/berkay/Desktop/DOSYA YONETİM/mehmet berkay yetgin Dosya Yönetim Vize+Final/dosyayonetim.ui/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/berkay/Desktop/DOSYA YONETİM/mehmet berkay yetgin Dosya Yönetim Vize+Final/dosyayonetim.ui/Views/Home/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/berkay/Desktop/DOSYA YONETİM/mehmet berkay yetgin Dosya Yönetim Vize+Final/dosyayonetim.ui/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/berkay/Desktop/DOSYA YONETİM/mehmet berkay yetgin Dosya Yönetim Vize+Final/dosyayonetim.ui/Views/Home/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxSZWdpc3Rlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/berkay/Desktop/DOSYA YONETİM/mehmet berkay yetgin Dosya Yönetim Vize+Final/dosyayonetim.ui/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/berkay/Desktop/DOSYA YONETİM/mehmet berkay yetgin Dosya Yönetim Vize+Final/dosyayonetim.ui/Views/Shared/_adminLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9hZG1pbkxheW91dC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/berkay/Desktop/DOSYA YONETİM/mehmet berkay yetgin Dosya Yönetim Vize+Final/dosyayonetim.ui/Views/Shared/_MenuLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9NZW51TGF5b3V0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/berkay/Desktop/DOSYA YONETİM/mehmet berkay yetgin Dosya Yönetim Vize+Final/dosyayonetim.ui/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/berkay/Desktop/DOSYA YONETİM/mehmet berkay yetgin Dosya Yönetim Vize+Final/dosyayonetim.ui/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/berkay/Desktop/DOSYA YONETİM/mehmet berkay yetgin Dosya Yönetim Vize+Final/dosyayonetim.ui/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/berkay/Desktop/DOSYA YONETİM/mehmet berkay yetgin Dosya Yönetim Vize+Final/dosyayonetim.ui/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-09m8u1pcge

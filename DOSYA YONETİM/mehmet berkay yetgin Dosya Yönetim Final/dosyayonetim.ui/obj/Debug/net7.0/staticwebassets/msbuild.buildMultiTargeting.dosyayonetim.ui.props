@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\dosyayonetim.ui.props" />
+</Project>

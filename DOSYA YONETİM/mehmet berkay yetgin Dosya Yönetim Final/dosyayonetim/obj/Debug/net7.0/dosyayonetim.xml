@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>dosyayonetim</name>
+    </assembly>
+    <members>
+        <member name="M:dosyayonetim.Controllers.AdminController.GetAllUsers">
+            <summary>
+            Gets all users in the system
+            </summary>
+            <returns>List of all users with their details</returns>
+        </member>
+        <member name="M:dosyayonetim.Controllers.AdminController.UpdateUserStorage(System.String,dosyayonetim.DTOs.UserStorageUpdateDTO)">
+            <summary>
+            Updates a user's storage limit
+            </summary>
+            <param name="userId">The ID of the user</param>
+            <param name="updateDto">New storage limit in bytes</param>
+            <returns>Updated user storage details</returns>
+        </member>
+        <member name="M:dosyayonetim.Controllers.AdminController.AssignAdminRole(System.String)">
+            <summary>
+            Assigns admin role to a user
+            </summary>
+            <param name="userId">The ID of the user</param>
+            <returns>Result of the operation</returns>
+        </member>
+        <member name="M:dosyayonetim.Controllers.AdminController.RemoveAdminRole(System.String)">
+            <summary>
+            Removes admin role from a user
+            </summary>
+            <param name="userId">The ID of the user</param>
+            <returns>Result of the operation</returns>
+        </member>
+        <member name="M:dosyayonetim.Controllers.AdminController.GetAllUserStorage">
+            <summary>
+            Gets storage details for all users
+            </summary>
+            <returns>List of all users' storage details</returns>
+        </member>
+        <member name="M:dosyayonetim.Controllers.AdminController.GetActiveUserStorage">
+            <summary>
+            Gets active user storage details
+            </summary>
+            <returns>List of active users' storage details</returns>
+        </member>
+        <member name="M:dosyayonetim.Controllers.AuthController.Register(dosyayonetim.DTOs.RegisterDto)">
+            <summary>
+            Registers a new user
+            </summary>
+            <param name="model">User registration details</param>
+            <returns>Registration result with user details</returns>
+            <response code="200">Returns the newly created user</response>
+            <response code="400">If the registration fails</response>
+        </member>
+        <member name="M:dosyayonetim.Controllers.AuthController.Login(dosyayonetim.DTOs.LoginDto)">
+            <summary>
+            Authenticates a user
+            </summary>
+            <param name="model">Login credentials</param>
+            <returns>Authentication result with JWT token</returns>
+            <response code="200">Returns the JWT token</response>
+            <response code="400">If the login fails</response>
+        </member>
+        <member name="T:dosyayonetim.Migrations.mig1">
+            <inheritdoc />
+        </member>
+        <member name="M:dosyayonetim.Migrations.mig1.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:dosyayonetim.Migrations.mig1.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:dosyayonetim.Migrations.mig1.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+    </members>
+</doc>

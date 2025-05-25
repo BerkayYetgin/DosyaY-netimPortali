@@ -1,0 +1,477 @@
+﻿@{
+    ViewData["Title"] = "Dosya Yönetimi";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+<div class="container-fluid mt-4">
+    <div class="folders-header">
+        <div class="left">
+            <h2>
+                <i class="bi bi-folder2-open"></i>
+                Klasörlerim
+            </h2>
+        </div>
+        <button class="create-btn" id="createFolderBtn">
+            <i class="bi bi-folder-plus me-2"></i>Yeni Klasör
+        </button>
+    </div>
+    <div id="userStorageBox" class="user-storage-box mb-4" style="display:none;">
+        <i class="bi bi-hdd-stack-fill text-warning fs-2 me-2"></i>
+        <span class="fw-bold">Kullanılan Alan:</span>
+        <span id="usedStorage"></span> / <span id="totalStorage"></span>
+        <span class="text-muted ms-2" id="storagePercent"></span>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="search-box mb-4">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-search"></i></span>
+                    <input type="text" class="form-control" id="searchFolder" placeholder="Klasör ara...">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" id="foldersContainer">
+        <!-- Klasörler buraya dinamik olarak eklenecek -->
+    </div>
+    <div id="noFoldersBox" class="alert alert-info text-center mt-4" style="display:none; font-size:1.15rem;">
+        <i class="bi bi-info-circle me-2"></i>Hiç klasörünüz yok. Hemen yeni bir klasör oluşturabilirsiniz!
+    </div>
+</div>
+
+<!-- Yeni Klasör Oluşturma Modal -->
+<div class="modal fade" id="createFolderModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fas fa-folder-plus me-2"></i>Yeni Klasör Oluştur</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="createFolderForm">
+                    <div class="mb-3">
+                        <label for="folderName" class="form-label">Klasör Adı</label>
+                        <input type="text" class="form-control" id="folderName" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                <button type="button" class="btn btn-primary" id="saveFolderBtn">Oluştur</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Klasör Düzenleme Modal -->
+<div class="modal fade" id="editFolderModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fas fa-edit me-2"></i>Klasörü Düzenle</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editFolderForm">
+                    <input type="hidden" id="editFolderId">
+                    <div class="mb-3">
+                        <label for="editFolderName" class="form-label">Klasör Adı</label>
+                        <input type="text" class="form-control" id="editFolderName" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                <button type="button" class="btn btn-primary" id="updateFolderBtn">Güncelle</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Silme Onay Modal -->
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fas fa-exclamation-triangle me-2"></i>Klasörü Sil</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Bu klasörü silmek istediğinizden emin misiniz?</p>
+                <p class="text-danger"><small>Bu işlem geri alınamaz!</small></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Sil</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .folder-card {
+        background: white;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        position: relative;
+    }
+
+    .folder-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .folder-icon {
+        font-size: 3rem;
+        color: #1e3c72;
+        margin-bottom: 10px;
+    }
+
+    .folder-name {
+        font-size: 1.1rem;
+        font-weight: 500;
+        color: #333;
+        margin-bottom: 5px;
+        word-break: break-word;
+    }
+
+    .folder-date {
+        font-size: 0.85rem;
+        color: #666;
+    }
+
+    .folder-actions {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .folder-card:hover .folder-actions {
+        opacity: 1;
+    }
+
+    .folder-action-btn {
+        background: none;
+        border: none;
+        color: #666;
+        padding: 5px;
+        margin-left: 5px;
+        cursor: pointer;
+        transition: color 0.3s ease;
+    }
+
+    .folder-action-btn:hover {
+        color: #1e3c72;
+    }
+
+    .search-box {
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+    .search-box .input-group-text {
+        background-color: white;
+        border-right: none;
+    }
+
+    .search-box .form-control {
+        border-left: none;
+    }
+
+    .search-box .form-control:focus {
+        box-shadow: none;
+        border-color: #ced4da;
+    }
+
+    .folders-header {
+        background: linear-gradient(90deg, #1e3c72 0%, #2a5298 100%);
+        border-radius: 18px;
+        padding: 32px 32px 24px 32px;
+        margin-bottom: 32px;
+        box-shadow: 0 6px 24px rgba(30,60,114,0.12);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: #fff;
+    }
+    .folders-header .left {
+        display: flex;
+        align-items: center;
+    }
+    .folders-header h2 {
+        font-size: 2.2rem;
+        font-weight: 700;
+        margin: 0;
+        letter-spacing: 1px;
+        display: flex;
+        align-items: center;
+    }
+    .folders-header .bi-folder2-open {
+        font-size: 2.5rem;
+        margin-right: 12px;
+        color: #ffd700;
+    }
+    .folders-header .create-btn {
+        font-size: 1.1rem;
+        padding: 12px 28px;
+        border-radius: 8px;
+        background: #ffd700;
+        color: #1e3c72;
+        font-weight: 600;
+        border: none;
+        box-shadow: 0 2px 8px rgba(30,60,114,0.08);
+        transition: background 0.2s, color 0.2s;
+    }
+    .folders-header .create-btn:hover {
+        background: #fff;
+        color: #2a5298;
+    }
+
+    .user-storage-box {
+        background: #fffbe6;
+        border: 1.5px solid #ffe066;
+        border-radius: 12px;
+        padding: 18px 28px;
+        font-size: 1.15rem;
+        color: #1e3c72;
+        display: flex;
+        align-items: center;
+        box-shadow: 0 2px 8px rgba(255,224,102,0.08);
+        margin-bottom: 24px;
+        font-weight: 500;
+    }
+</style>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            const createFolderModal = new bootstrap.Modal(document.getElementById('createFolderModal'));
+            const editFolderModal = new bootstrap.Modal(document.getElementById('editFolderModal'));
+            const deleteConfirmModal = new bootstrap.Modal(document.getElementById('deleteConfirmModal'));
+            let folders = [];
+            let folderToDelete = null;
+
+            // Klasörleri yükle
+            function loadFolders() {
+                const token = localStorage.getItem('token');
+                if (!token) {
+                    window.location.href = '/Home/Login';
+                    return;
+                }
+
+                $.ajax({
+                    url: API_SETTINGS.BASE_URL + '/api/Folder',
+                    type: 'GET',
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    },
+                    success: function(response) {
+                        folders = response;
+                        displayFolders(folders);
+                        // Kullanıcı toplam alanı göster
+                        if (folders.length > 0 && folders[0].userTotalSize !== undefined) {
+                            const used = folders[0].userTotalSize;
+                            const total = 10 * 1024 * 1024 * 1024; // 10 GB
+                            const percent = Math.round((used / total) * 100);
+                            $('#usedStorage').text(formatFileSize(used));
+                            $('#totalStorage').text('10 GB');
+                            $('#storagePercent').text(`(${percent}% dolu)`);
+                            $('#userStorageBox').show();
+                        } else {
+                            $('#userStorageBox').hide();
+                        }
+                    },
+                    error: function() {
+                        toastr.error('Klasörler yüklenirken bir hata oluştu');
+                    }
+                });
+            }
+
+            // Klasörleri görüntüle
+            function displayFolders(foldersToDisplay) {
+                const container = $('#foldersContainer');
+                container.empty();
+
+                if (!foldersToDisplay || foldersToDisplay.length === 0 || (foldersToDisplay.length === 1 && !foldersToDisplay[0].id)) {
+                    $('#noFoldersBox').show();
+                    return;
+                } else {
+                    $('#noFoldersBox').hide();
+                }
+
+                foldersToDisplay.forEach(folder => {
+                    if (!folder.id) return; // id yoksa (ör. sadece toplam alan için eklenen) kart oluşturma
+                    const date = new Date(folder.createdAt).toLocaleDateString('tr-TR');
+                    const folderHtml = `
+                        <div class="col-md-3 col-sm-6">
+                            <div class="folder-card" data-id="${folder.id}">
+                                <div class="folder-actions">
+                                    <button class="folder-action-btn edit-folder" title="Düzenle">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="folder-action-btn delete-folder" title="Sil">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                                <div class="folder-icon">
+                                    <i class="fas fa-folder"></i>
+                                </div>
+                                <div class="folder-name">${folder.name}</div>
+                                <div class="folder-date">Oluşturulma: ${date}</div>
+                            </div>
+                        </div>
+                    `;
+                    container.append(folderHtml);
+                });
+
+                // Klasör kartlarına tıklama olayı ekle
+                $('.folder-card').click(function(e) {
+                    if ($(e.target).closest('.folder-actions').length) {
+                        return;
+                    }
+                    const folderId = $(this).data('id');
+                    window.location.href = '/Home/FolderContent?id=' + folderId;
+                });
+            }
+
+            // Yeni klasör oluştur
+            $('#createFolderBtn').click(function() {
+                createFolderModal.show();
+            });
+
+            $('#saveFolderBtn').click(function() {
+                const folderName = $('#folderName').val();
+                if (!folderName) {
+                    toastr.error('Klasör adı boş olamaz');
+                    return;
+                }
+
+                const token = localStorage.getItem('token');
+                $.ajax({
+                    url: API_SETTINGS.BASE_URL + '/api/Folder',
+                    type: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                        'Content-Type': 'application/json'
+                    },
+                    data: JSON.stringify({ name: folderName }),
+                    success: function(response) {
+                        toastr.success('Klasör başarıyla oluşturuldu');
+                        createFolderModal.hide();
+                        $('#folderName').val('');
+                        loadFolders();
+                    },
+                    error: function(xhr) {
+                        toastr.error(xhr.responseJSON?.message || 'Klasör oluşturulurken bir hata oluştu');
+                    }
+                });
+            });
+
+            // Klasör düzenleme
+            $(document).on('click', '.edit-folder', function(e) {
+                e.stopPropagation();
+                const folderId = $(this).closest('.folder-card').data('id');
+                const folder = folders.find(f => f.id === folderId);
+                
+                if (folder) {
+                    $('#editFolderId').val(folder.id);
+                    $('#editFolderName').val(folder.name);
+                    editFolderModal.show();
+                }
+            });
+
+            $('#updateFolderBtn').click(function() {
+                const folderId = $('#editFolderId').val();
+                const folderName = $('#editFolderName').val();
+
+                if (!folderName) {
+                    toastr.error('Klasör adı boş olamaz');
+                    return;
+                }
+
+                const token = localStorage.getItem('token');
+                $.ajax({
+                    url: API_SETTINGS.BASE_URL + '/api/Folder/' + folderId,
+                    type: 'PUT',
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                        'Content-Type': 'application/json'
+                    },
+                    data: JSON.stringify({ name: folderName }),
+                    success: function() {
+                        toastr.success('Klasör başarıyla güncellendi');
+                        editFolderModal.hide();
+                        loadFolders();
+                    },
+                    error: function(xhr) {
+                        toastr.error(xhr.responseJSON?.message || 'Klasör güncellenirken bir hata oluştu');
+                    }
+                });
+            });
+
+            // Klasör silme
+            $(document).on('click', '.delete-folder', function(e) {
+                e.stopPropagation();
+                folderToDelete = $(this).closest('.folder-card').data('id');
+                deleteConfirmModal.show();
+            });
+
+            $('#confirmDeleteBtn').click(function() {
+                if (!folderToDelete) return;
+
+                const token = localStorage.getItem('token');
+                $.ajax({
+                    url: API_SETTINGS.BASE_URL + '/api/Folder/' + folderToDelete,
+                    type: 'DELETE',
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    },
+                    success: function() {
+                        toastr.success('Klasör başarıyla silindi');
+                        deleteConfirmModal.hide();
+                        // Silinen klasörü UI'dan kaldır
+                        $(`.folder-card[data-id="${folderToDelete}"]`).closest('.col-md-3').fadeOut(300, function() {
+                            $(this).remove();
+                            loadFolders(); // Klasör silindiğinde toplam alanı güncelle
+                        });
+                        folderToDelete = null;
+                    },
+                    error: function(xhr) {
+                        toastr.error(xhr.responseJSON?.message || 'Klasör silinirken bir hata oluştu');
+                        deleteConfirmModal.hide();
+                    }
+                });
+            });
+
+            // Klasör arama
+            $('#searchFolder').on('input', function() {
+                const searchTerm = $(this).val().toLowerCase();
+                const filteredFolders = folders.filter(folder => 
+                    folder.name.toLowerCase().includes(searchTerm)
+                );
+                displayFolders(filteredFolders);
+            });
+
+            // Dosya boyutunu formatla
+            function formatFileSize(bytes) {
+                if (bytes === 0) return '0 Bytes';
+                const k = 1024;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+            }
+
+            // Sayfa yüklendiğinde klasörleri getir
+            loadFolders();
+        });
+    </script>
+}

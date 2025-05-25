@@ -1,0 +1,85 @@
+@{
+    ViewData["Title"] = "Login";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+<style>
+    body {
+       
+        min-height: 100vh;
+    }
+    .login-card {
+        border-radius: 18px;
+        box-shadow: 0 6px 24px rgba(30,60,114,0.12);
+        border: none;
+        margin-top: 60px;
+    }
+    .login-card .card-header {
+       
+            background: linear-gradient(90deg, #1e3c72 0%, #2a5298 100%);
+        border-radius: 18px 18px 0 0;
+        border-bottom: none;
+    }
+    .login-card .card-header h3 {
+        color: #FFF;
+        font-weight: 700;
+        font-size: 2rem;
+        margin: 0;
+    }
+    .login-card .btn-primary {
+        background: #ffd700;
+        color: #1e3c72;
+        font-weight: 600;
+        border: none;
+        transition: background 0.2s, color 0.2s;
+    }
+    .login-card .btn-primary:hover {
+        background: #1e3c72;
+        color: #ffd700;
+    }
+    .login-card .form-label {
+        color: #1e3c72;
+        font-weight: 500;
+    }
+    .login-card .form-control:focus {
+        border-color: #ffd700;
+        box-shadow: 0 0 0 0.1rem #ffd70033;
+    }
+    .login-card .text-center a {
+        color: #1e3c72;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+    .login-card .text-center a:hover {
+        color: #ffd700;
+    }
+</style>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card login-card">
+                <div class="card-header">
+                    <h3 class="text-center"><i class="bi bi-person-circle me-2"></i>Giriş Yap</h3>
+                </div>
+                <div class="card-body">
+                    <form id="loginForm">
+                        <div class="mb-3">
+                            <label for="loginUsername" class="form-label">Kullanıcı Adı</label>
+                            <input type="text" class="form-control" id="loginUsername" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="loginPassword" class="form-label">Şifre</label>
+                            <input type="password" class="form-control" id="loginPassword" required>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">Giriş Yap</button>
+                        </div>
+                        <div class="text-center mt-3">
+                            <p>Hesabınız yok mu? <a href="/Home/Register">Kayıt Ol</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
